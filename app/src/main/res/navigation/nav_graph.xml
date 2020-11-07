@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashBlankFragment">
+
+    <fragment
+        android:id="@+id/splashBlankFragment"
+        android:name="com.example.braintrainer.SplashBlankFragment"
+        android:label="fragment_splash_blank"
+        tools:layout="@layout/fragment_splash_blank" >
+        <action
+            android:id="@+id/action_splashBlankFragment_to_gameStartFragment"
+            app:destination="@id/gameStartFragment"
+            app:popUpTo="@id/splashBlankFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.braintrainer.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/action_gameFragment_to_gameWinFragment"
+            app:destination="@id/gameWinFragment"
+            app:popUpTo="@id/gameWinFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameWinFragment"
+        android:name="com.example.braintrainer.GameWinFragment"
+        android:label="fragment_game_win"
+        tools:layout="@layout/fragment_game_win" >
+        <argument
+            android:name="score"
+            app:argType="string"
+            android:defaultValue='"Score = 0/0"' />
+        <action
+            android:id="@+id/action_gameWinFragment_to_gameStartFragment"
+            app:destination="@id/gameStartFragment"
+            app:popUpTo="@id/gameFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameStartFragment"
+        android:name="com.example.braintrainer.GameStartFragment"
+        android:label="fragment_game_start"
+        tools:layout="@layout/fragment_game_start" >
+        <action
+            android:id="@+id/action_gameStartFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/gameStartFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
