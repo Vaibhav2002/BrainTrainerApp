@@ -1,17 +1,15 @@
 package com.example.braintrainer
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.*
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.braintrainer.databinding.FragmentGameBinding
-import com.example.braintrainer.databinding.FragmentGameStartBinding
-import kotlin.properties.Delegates
 
 class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
@@ -23,13 +21,14 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_game, container, false)
-        viewModel = GameViewModel()
+        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
         viewModel.nav.observe(viewLifecycleOwner, Observer {
             if (it) {
-                val action=GameFragmentDirections.actionGameFragmentToGameWinFragment(score=binding.score.text.toString())
+                val action =
+                    GameFragmentDirections.actionGameFragmentToGameWinFragment(score = viewModel.corr_total.value.toString())
                 findNavController().navigate(action)
             }
         })

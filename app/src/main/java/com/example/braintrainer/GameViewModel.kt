@@ -15,7 +15,7 @@ class GameViewModel : ViewModel() {
     private var _answerList: MutableLiveData<ArrayList<String>> = MutableLiveData()
     private var _express: MutableLiveData<String> = MutableLiveData()
     private var _corr_total: MutableLiveData<String>
-    private var displayText:MutableLiveData<String>
+    private var _displayText: MutableLiveData<String>
 
     //public member to be observed
     var answerList: MutableLiveData<ArrayList<String>>
@@ -23,6 +23,7 @@ class GameViewModel : ViewModel() {
     var express: MutableLiveData<String>
     var timer: MutableLiveData<String>
     var nav: MutableLiveData<Boolean>
+    var displayText: MutableLiveData<String>
 
 
     private var answerLocation: Int = -1
@@ -33,7 +34,7 @@ class GameViewModel : ViewModel() {
         //private members
         _express = MutableLiveData()
         _corr_total = MutableLiveData()
-        displayText=MutableLiveData()
+        _displayText = MutableLiveData()
 
         //public members
         corr_total = MutableLiveData()
@@ -41,14 +42,16 @@ class GameViewModel : ViewModel() {
         timer = MutableLiveData()
         nav = MutableLiveData()
         answerList = MutableLiveData()
+        displayText = MutableLiveData()
 
         //default values
         _express.value=""
         express.value= _express.value
         _timer.value=TIMER.toString()
         timer.value=_timer.value
-        displayText.value=""
-        _corr_total.value="0/0"
+        displayText.value = ""
+        _displayText.value = ""
+        _corr_total.value = "0/0"
         corr_total.value=_corr_total.value
         _answerList.value= arrayListOf("0","0","0","0")
         answerList.value=_answerList.value
@@ -71,11 +74,14 @@ class GameViewModel : ViewModel() {
     }
 
     fun ansSelect(tag: String) {
-        if (tag == answerLocation.toString())
+        if (tag == answerLocation.toString()) {
             corr++
+            _displayText.value = "Correct :)"
+        } else _displayText.value = "Wrong :("
         total++
         _corr_total.value = "$corr/$total"
         corr_total.value = _corr_total.value
+        displayText.value = _displayText.value
         Question()
     }
 

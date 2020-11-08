@@ -1,12 +1,11 @@
 package com.example.braintrainer
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.braintrainer.databinding.FragmentGameWinBinding
 
 class GameWinFragment : Fragment() {
@@ -16,8 +15,11 @@ class GameWinFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding=FragmentGameWinBinding.inflate(inflater)
-        binding.scoretext.text=GameWinFragmentArgs().score
+        val binding = FragmentGameWinBinding.inflate(inflater)
+        val Score = GameWinFragmentArgs.fromBundle(requireArguments()).score
+        val text: String = "Your scored ${Score.substring(0, Score.indexOf('/'))} " +
+                "out of ${Score.substring(Score.indexOf('/') + 1)} questions"
+        binding.scoretext.text = text
         binding.playagainbtn.setOnClickListener {
             findNavController().navigate(GameWinFragmentDirections.actionGameWinFragmentToGameStartFragment())
         }
